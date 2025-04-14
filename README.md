@@ -34,3 +34,27 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Start the DB with podman
+
+```
+    # podman pull postgres
+    # mkdir pg_data
+    # podman run -d \
+      --name postgresql \
+      -v ${PWD}/pg_data:/var/lib/postgresql/data \
+      -v ${PWD}/init.sql:/docker-entrypoint-initdb.d/init.sql \
+      -p 5432:5432 \
+      postgres
+```      
+
+Run the application locally with following commands, make sure .env is updated with right db credentials
+```
+    # rm -rf node_modules .prisma prisma/migrations package-lock.json
+    # mv .env.example .env
+    # npm install
+    # npx prisma generate
+    # npx prisma migrate dev --name init
+    # npm run dev
+
+```
