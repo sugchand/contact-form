@@ -42,6 +42,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
     # mkdir pg_data
     # podman run -d \
       --name postgresql \
+      -e POSTGRES_PASSWORD=password \
       -v ${PWD}/pg_data:/var/lib/postgresql/data \
       -v ${PWD}/init.sql:/docker-entrypoint-initdb.d/init.sql \
       -p 5432:5432 \
